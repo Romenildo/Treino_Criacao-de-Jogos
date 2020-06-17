@@ -1,6 +1,7 @@
 package shottingStar.modelo;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
@@ -21,7 +22,7 @@ public class Tiro {
 	}
 	
 	public void load() {
-		ImageIcon referencia = new ImageIcon("res\\tiro.png");//imagem do tiro
+		ImageIcon referencia = new ImageIcon("res\\tiroRemodeled.png");//imagem do tiro
 		imagem = referencia.getImage();
 		
 		this.largura = imagem.getWidth(null);//tamanho de colisao da bala
@@ -34,6 +35,10 @@ public class Tiro {
 		this.x += VELOCIDADE;
 			if(this.x > LARGURA)
 				isVisivel = false;//caso o tiro passe a largura que é a posicao final da tela ele sumira
+	}
+	
+	public Rectangle getBounds() {//cria um retangulo da area de colisao do objeto
+		return new Rectangle (x,y,largura,altura);
 	}
 	
 	
