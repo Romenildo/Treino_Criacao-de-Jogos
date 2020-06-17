@@ -3,7 +3,10 @@
 package shottingStar.modelo;
 
 import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +18,7 @@ public class Player {
 	private int dx, dy;
 	private Image imagem;  //sprite do persongaem
 	private int altura, largura; //colisao
+	private boolean isVisible;
 	
 	private List<Tiro> tiros;//lista que aloca infinitos tiros
 	
@@ -22,14 +26,23 @@ public class Player {
 		//Construtor ja deixa padrao
 		this.x = 100;
 		this.y = 100;  //local da tela onde o personagem aparece
+		isVisible = true;
 		
 		tiros = new ArrayList<Tiro>();
 
 	}
 	
+	public boolean isVisible() {
+		return isVisible;
+	}
+
+	public void setVisible(boolean isVisible) {
+		this.isVisible = isVisible;
+	}
+
 	public void load() {
 		//carregar sprite do personagem e o tamanho dele
-		ImageIcon referencia = new ImageIcon("res\\player.png");
+		ImageIcon referencia = new ImageIcon("res\\playerremodeled.png");
 		imagem = referencia.getImage();
 		altura = imagem.getHeight(null);
 		largura = imagem.getWidth(null);
@@ -46,20 +59,28 @@ public class Player {
 		this.tiros.add(new Tiro(x+10, y));//tiro aparecer exatamento no meio da nave
 	}
 	
+	public Rectangle getBounds() {//cria um retangulo da area de colisao do objeto
+		return new Rectangle (x,y,largura,altura);
+	}
+	
+	
 	public void keyPressed(KeyEvent tecla) {
 		//ler as teclas digitadas
 		int codigo = tecla.getKeyCode();
 		
-		if(codigo == KeyEvent.VK_Z)   //tecla para atira caso precione z ele ativa o metodo do tiro
+		if(codigo == KeyEvent.VK_Z) {
 			tiroSimples();
+
+		}   //tecla para atira caso precione z ele ativa o metodo do tiro
+			
 		if(codigo == KeyEvent.VK_UP)//quando precionado para cima o dy soma +3 com a posicao fazendo ele andar mais 3 casas
-			dy =-3;
+			dy =-4;
 		if(codigo == KeyEvent.VK_DOWN)
-			dy =3;
+			dy =4;
 		if(codigo == KeyEvent.VK_LEFT)
-			dx =-3;
+			dx =-4;
 		if(codigo == KeyEvent.VK_RIGHT)
-			dx =3;
+			dx =4;
 	}
 	
 	public void keyRelease(KeyEvent tecla) {
